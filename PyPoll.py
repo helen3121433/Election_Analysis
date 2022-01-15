@@ -55,49 +55,68 @@ with open(file_to_load) as election_data:
         # we put this out of the if statement but aligned with the for loop
         # so that it will count is incremented as we iterate through each row
         candidate_votes[candidate_name] +=1
+    
+    # Save the results to our text file.
+    with open(file_to_save, "w") as txt_file:
+        # print the final vote count to the terminal.
+        election_results = (
+            f"\nElections Results\n"
+            f"---------------------------\n"
+            f"Total votes: {total_votes:,}\n"
+            f"---------------------------\n"
+        )
+        print(election_results, end="")
+        # save the final vote count tothe text file
+        txt_file.write(election_results)
 
-    # Determine the percentage of votes for ach candidate by lopping through the counts
-    # 1. Iterate through the candidate list.
-    for candidate_name in candidate_votes:
-        # 2. retrieve vote count of a candidate
-        votes = candidate_votes[candidate_name]
-        # 3. calculate the percentage of votes, and formulat in two decimal places
-        # "{:.2f}".format
-        vote_percentage = float(votes)/float(total_votes) * 100 
+        # Determine the percentage of votes for ach candidate by lopping through the counts
+        # 1. Iterate through the candidate list.
 
-        # 4. Print the candidate name and percentage of votes
-        #print out each candidate's name, vote count, and percentage of vote to the terminal.
-        # vote_percentage :.1f / in one decimal place
-        print(f"{candidate_name}: {vote_percentage:.1f} % ({votes:,})\n") 
+        for candidate_name in candidate_votes:
+            # 2. retrieve vote count of a candidate
+            votes = candidate_votes[candidate_name]
+            # 3. calculate the percentage of votes, and formulat in two decimal places
+            # "{:.2f}".format
+            vote_percentage = float(votes)/float(total_votes) * 100 
+
+            # 4. Print the candidate name and percentage of votes
+            #print out each candidate's name, vote count, and percentage of vote to the terminal.
+            # vote_percentage :.1f / in one decimal place
+            candidate_results = (f"{candidate_name}: {vote_percentage:.1f} % ({votes:,})\n") 
+            print(candidate_results)
+            txt_file.write(candidate_results)
+            
 
         # Determine winning vote count and candidate
         # Determine if the votes is greater than the winning count.
-        if (votes > winning_count) and (vote_percentage > winning_percentage):
-            # If true then set winning_count = votes and winning_percent = vote percentage.
-            winning_count = votes
-            winning_percentage = vote_percentage
-            # and, set winning_candidate equal to candidate name
-            winning_candidate = candidate_name
+            if (votes > winning_count) and (vote_percentage > winning_percentage):
+                # If true then set winning_count = votes and winning_percent = vote percentage.
+                winning_count = votes
+                winning_percentage = vote_percentage
+                # and, set winning_candidate equal to candidate name
+                winning_candidate = candidate_name
     
-    winning_candidate_summary = (
-        f"-------------------------------------\n"
-        f"Winner: {winning_candidate}\n"
-        f"Winning vote count: {winning_count:,}\n"
-        f"Winning Percentage: {winning_percentage:.1f}%\n"
-        f"-------------------------------------\n"
-    )
-    print(winning_candidate_summary)
+        winning_candidate_summary = (
+            f"-------------------------------------\n"
+            f"Winner: {winning_candidate}\n"
+            f"Winning vote count: {winning_count:,}\n"
+            f"Winning Percentage: {winning_percentage:.1f}%\n"
+            f"-------------------------------------\n")
+        # print(winning_candidate_summary)
+        print(winning_candidate_summary)
+        txt_file.write(winning_candidate_summary)
+    
 
 
 
 # print the candidate vote dictionary
-print(candidate_votes)
+#print(candidate_votes)
 
 # print the candidate list.
-print(candidate_options)
+#print(candidate_options)
     
 # 3. print the total votes.
-print(total_votes)
+#print(total_votes)
 
 # Accumulator, count up all the votes by initialize a variable.
 # accoumulator will increment by 1 as we read each row in the for loop
