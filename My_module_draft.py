@@ -55,6 +55,9 @@ with open(file_to_load) as election_data:
         # we put this out of the if statement but aligned with the for loop
         # so that it will count is incremented as we iterate through each row
         candidate_votes[candidate_name] +=1
+    #print(candidate_votes)
+    #print(candidate_options)
+    #print(total_votes)
     
     # Save the results to our text file.
     with open(file_to_save, "w") as txt_file:
