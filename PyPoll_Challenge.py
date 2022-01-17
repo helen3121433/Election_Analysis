@@ -10,9 +10,9 @@ import csv
 # add ".." if want to search file in folder other than current folder
 file_to_load = os.path.join("Resources", "election_results.csv")
 # Add a variable to save the file to a path.
-file_to_save = os.path.join("analysis", "election_analysis.txt")
+file_to_save = os.path.join("analysis", "election_results.txt")
 
-# Other way to read/write file from path
+# Other way to load file from path
 #from pathlib import Path
 #file_to_load = Path("Resources/election_results.csv")
 
@@ -40,6 +40,7 @@ largestCounty_count = 0
 
 # Read the csv and convert it into a list of dictionaries
 with open(file_to_load) as election_data:
+    # Read the file object with the reader function
     reader = csv.reader(election_data)
 
     # Read the header
@@ -49,12 +50,15 @@ with open(file_to_load) as election_data:
     for row in reader:
 
         # Add to the total vote count
+        # total_votes = total_votes + 1
         total_votes += 1
 
         # Get the candidate name from each row.
+        # Get candidate name on column 3 of each row
         candidate_name = row[2]
 
         # 3: Extract the county name from each row.
+        # get county name on column 2 of each row
         county_name = row[1]
 
         # If the candidate does not match any existing candidate add it to
@@ -65,9 +69,11 @@ with open(file_to_load) as election_data:
             candidate_options.append(candidate_name)
 
             # And begin tracking that candidate's voter count.
+            # initialize each candidate's vote count to zero
             candidate_votes[candidate_name] = 0
 
         # Add a vote to that candidate's count
+        # Outside of if statement
         candidate_votes[candidate_name] += 1
     
     #print(candidate_votes)
@@ -113,6 +119,7 @@ with open(file_to_save, "w") as txt_file:
         county_count = county_votes.get(county_name)
 
         # 6c: Calculate the percentage of votes for the county.
+        # use :.1f to set in one decimal place
         county_percentage = float(county_count) / float(total_votes) * 100
         county_results = (
             f"{county_name}: {county_percentage:.1f}% ({county_count:,})\n")
@@ -124,6 +131,8 @@ with open(file_to_save, "w") as txt_file:
         txt_file.write(county_results)
 
          # 6f: Write an if statement to determine the winning county and get its vote count.
+         # if county_count is larget than the number in laregestcounty_count,
+         # change largestcounty_count as that county_count numbers
         if county_count > largestCounty_count:
             largestCounty_count = county_count
             largest_county = county_name
