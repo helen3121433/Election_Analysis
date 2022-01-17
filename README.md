@@ -41,6 +41,8 @@ The analysis of the election shows that:
 - The winner of the election was:
     - Diana DeGette, who received 73.8% of the vote and 272,892 votes.
 
+![](https://github.com/helen3121433/Election_Analysis/blob/main/myDraft/Election_results_terminal.PNG)
+
 ## Election-Audit Summary
 
 This script can generate an election report for any election. For example, if the election CSV file has the voting method. We can modify the script by telling how many votes were from the mail-in Ballot, how many were punch cards, and how many were direct recording electronic. We can also determine which voting methods are more popular. If the election CSV file were for nationwide elections, we can also modify the script by adding a total number of votes from each state. Additionally, we can also write a new statement to determine the percentage of different political parties in each state. Overall, this script could help many different elections, as long as we have data in rows and columns.
